@@ -259,6 +259,7 @@ addNodess:
     lw $s4, 4($s1)
     lw $s5, 4($s2)
 
+    
     blt $s4, $s5, first1
     blt $s5, $s4, second1
     beq $s4, $s5, oneOfThem1
@@ -287,26 +288,28 @@ addNodess:
 	jr	$ra
 
 first:
-	sw	$s4, 4($s6)	# store it to the first node's data field
-    
 
-    lw $t1, 0($s1)
+	sw	$s4, 4($s6)	# store it to the first node's data field
+
+    lw $v1, 0($s1)
     addi $s1, $s1, 8
-    beq $t1, $zero, firstFinished   
+    beq $v1, $zero, firstFinished   
 
     j keep
 
 second:
+
     sw	$s5, 4($s6)	# store it to the first node's data field
     
 
-    lw $t2, 0($s2)
+    lw $a2, 0($s2)
     addi $s2, $s2, 8
-    beq $t2 , $zero, secondFinished
+    beq $a2 , $zero, secondFinished
 
     j keep
 
 oneOfThem:
+
     sw	$s4, 4($s6)	# store it to the first node's data field
 
     addi $s0, $s0, -1
@@ -314,48 +317,54 @@ oneOfThem:
     # addi $sp, $sp, -32
     # sw	$s1, 4($sp)
 	# sw	$t1, 0($sp) 
-    lw $t1, 0($s1)
-    lw $t2, 0($s2)
+    lw $v1, 0($s1)
+    lw $a2, 0($s2)
     addi $s1, $s1, 8
     addi $s2, $s2, 8
-    beq $t1, $zero, firstFinished
-    beq $t2, $zero, secondFinished
+    beq $v1, $zero, firstFinished
+    beq $a2, $zero, secondFinished
 
     j keep
 
 first1:
+
 	sw	$s4, 4($s6)	# store it to the first node's data field
     
 
     #change!
-    lw $t1, 0($s1)
+    lw $a1, 0($s1)
     addi $s1, $s1, 8
-    beq $t1, $zero, firstFinished  
+    beq $a1, $zero, firstFinished  
 
     j keep1
 
 second1:
+
+
     sw	$s5, 4($s6)	# store it to the first node's data field
     
 
 
-    lw $t2, 0($s2)
+    lw $a2, 0($s2)
     addi $s2, $s2, 8
-    beq $t2 , $zero, secondFinished
+    beq $a2 , $zero, secondFinished
 
     j keep1
 
 oneOfThem1:
+
     sw	$s4, 4($s6)	# store it to the first node's data field
 
     addi $s0, $s0, -1
 
-    lw $t1, 0($s1)
-    lw $t2, 0($s2)
+    lw $v1, 0($s1)
+    lw $a2, 0($s2)
     addi $s1, $s1, 8
     addi $s2, $s2, 8
-    beq $t1, $zero, firstFinished
-    beq $t2, $zero, secondFinished
+    beq $v1, $zero, firstFinished
+    beq $a2, $zero, secondFinished
+
+
 
     j keep1
 
