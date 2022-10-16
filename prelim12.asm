@@ -294,10 +294,6 @@ first:
     addi $s1, $s1, 8
     beq $t1, $zero, firstFinished   
 
-    li $v0, 1
-    move $a0, $s4
-    syscall
-
     j keep
 
 second:
@@ -307,10 +303,6 @@ second:
     lw $t2, 0($s2)
     addi $s2, $s2, 8
     beq $t2 , $zero, secondFinished
-
-    li $v0, 1
-    move $a0, $s5
-    syscall
 
     j keep
 
@@ -329,9 +321,6 @@ oneOfThem:
     beq $t1, $zero, firstFinished
     beq $t2, $zero, secondFinished
 
-    li $v0, 1
-    move $a0, $s4
-    syscall
     j keep
 
 first1:
@@ -342,10 +331,6 @@ first1:
     lw $t1, 0($s1)
     addi $s1, $s1, 8
     beq $t1, $zero, firstFinished  
-    
-    li $v0, 1
-    move $a0, $s4
-    syscall
 
     j keep1
 
@@ -357,10 +342,6 @@ second1:
     lw $t2, 0($s2)
     addi $s2, $s2, 8
     beq $t2 , $zero, secondFinished
-
-    li $v0, 1
-    move $a0, $s5
-    syscall
 
     j keep1
 
@@ -376,26 +357,14 @@ oneOfThem1:
     beq $t1, $zero, firstFinished
     beq $t2, $zero, secondFinished
 
-    li $v0, 1
-    move $a0, $s4
-    syscall
-
     j keep1
 
 firstFinished: 
-
-    li $v0, 4 
-    la $a0, inFirstFinished
-    syscall
 
     sw $s2 , 0($s6)
     move	$s6, $s2 # the address of the new node ($v0) is stored into 0($6), first part (link field) of the previous node
     j keep2
 secondFinished:
-
-    li $v0, 4 
-    la $a0, inSecondFinished
-    syscall
 
     sw $s1, 0($s6)
     move $s6, $s1 # the address of the new node ($v0) is stored into 0($6), first part (link field) of the previous node
