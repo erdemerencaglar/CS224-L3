@@ -10,6 +10,7 @@
     inFirstFinished: .asciiz "\n In first finished "
     inSecondFinished: .asciiz "\n DENEME "
     reversedLinkedList: .asciiz "\n Reversed linked list: "
+    space: .asciiz " "
 
 .text
 
@@ -36,7 +37,6 @@
 
         addi $sp, $sp, -16
         sw $s3, 12($sp)
-        # sw $s2, 12($sp)
         sw $s1, 8($sp)
         sw $s0, 4($sp)
         sw $ra, 0($sp)
@@ -47,26 +47,22 @@
         lw $s0, 0($s1) 
         lw $s3, 4($s1)
 
-        # li $v0, 4
-        # la $a0, inSecondFinished
-        # syscall
-        # li $v0, 1
-        # move $a0, $s3
-        # syscall
-
         li $v0, 1
         beq $s0, $zero, recursionDone
         
         addi $s1, $s1, 8
-        # addi $s2, $s2, -1
         move $a0, $s1
-        # move $a1, $s2
+
         jal displayReverseOrderRecursive
 
-        lw $s3, 4($s1) # emin değilim..
+        lw $s3, 4($s1)
 
         li $v0, 1
         move $a0, $s3
+        syscall
+
+        li $v0, 4
+        la $a0, space
         syscall
 
         recursionDone:
@@ -74,7 +70,6 @@
             lw $ra, 0($sp)
             lw $s0, 4($sp)
             lw $s1, 8($sp)
-            # lw $s2, 12($sp)
             lw $s3, 12($sp)
             addi $sp, $sp, 16
 
