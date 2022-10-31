@@ -35,27 +35,40 @@
 
     displayReverseOrderRecursive:
 
-        addi $sp, $sp, -16
-        sw $s3, 12($sp)
+        addi $sp, $sp, -12
+        # sw $s3, 12($sp)
         sw $s1, 8($sp)
         sw $s0, 4($sp)
         sw $ra, 0($sp)
-
+		
         move $s1, $a0 # address of the linked list
         # move $s2, $a1 # size
+
+
+		# to print the normal version
+		# lw $s3, 4($s1)
+        # li $v0, 1
+        # move $a0, $s3
+        # syscall
+
+		# li $v0, 4
+        # la $a0, space
+        # syscall
+		# to print the normal version
+
 
         lw $s0, 0($s1) 
         lw $s3, 4($s1)
 
         li $v0, 1
-        beq $s0, $zero, recursionDone
+        beq $s0, $zero, recursionDoneIf
         
         addi $s1, $s1, 8
         move $a0, $s1
 
         jal displayReverseOrderRecursive
 
-        lw $s3, 4($s1)
+        lw $s3, -4($s1)
 
         li $v0, 1
         move $a0, $s3
@@ -65,13 +78,26 @@
         la $a0, space
         syscall
 
+		j recursionDone
+
+		recursionDoneIf:
+
+			lw $s3, 4($s1)
+        	li $v0, 1
+        	move $a0, $s3
+        	syscall
+
+			li $v0, 4
+        	la $a0, space
+        	syscall
+
         recursionDone:
 
             lw $ra, 0($sp)
             lw $s0, 4($sp)
             lw $s1, 8($sp)
-            lw $s3, 12($sp)
-            addi $sp, $sp, 16
+            # lw $s3, 12($sp)
+            addi $sp, $sp, 12
 
             jr $ra
 
